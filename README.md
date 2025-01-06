@@ -20,10 +20,7 @@ The architecture of the system is designed with modularity and scalability in mi
    - **Gemini LLM** enriches retrieved contexts, enabling better decision-making.
    - A logistic regression model is used for binary classification (`ham` or `spam`).
 
-4. **API Integration**
-   - The classification pipeline is exposed via a RESTful API for real-time email classification.
-
-5. **Evaluation**
+4. **Evaluation**
    - Metrics such as accuracy, precision, recall, and F1 score are computed on real-world datasets to validate the model.
 
 ---
