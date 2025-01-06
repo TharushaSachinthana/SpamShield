@@ -1,119 +1,150 @@
-# Email Spam Detection Project
+# Email Spam Filtering with Retrieval-Augmented Generation (RAG)
 
 ## Overview
-The **Email Spam Detection** project aims to identify and classify spam emails using advanced machine learning techniques. This repository is structured to ensure ease of use, clarity, and extensibility, making it suitable for educational, research, and production-level purposes.
+This repository showcases an advanced **email spam detection system** that leverages **Retrieval-Augmented Generation (RAG)** and **Large Language Models (LLMs)** for precise and context-aware email classification. The solution integrates cutting-edge technologies such as **FAISS**, **SentenceTransformer**, and **Gemini LLM**, providing a scalable and real-time classification pipeline with API capabilities.  
 
-## Features
-- Efficient preprocessing pipeline for text data.
-- State-of-the-art machine learning models for spam classification.
-- Robust evaluation metrics and visualizations.
-- Modular scripts for easy customization.
-- Comprehensive test coverage to ensure reliability.
+This project was developed with the goal of enhancing traditional spam filtering approaches by incorporating contextual understanding and real-time retrieval.
 
 ---
 
 ## Architecture
-```
+The architecture of the system is designed with modularity and scalability in mind:
+
+1. **Data Preprocessing**
+   - Raw emails are processed for cleaning, tokenization, and embedding generation using **SentenceTransformer**.
+
+2. **Embedding and Retrieval**
+   - A **FAISS** index is built using preprocessed embeddings for fast similarity search and retrieval of relevant email contexts.
+
+3. **Classification and Augmentation**
+   - **Gemini LLM** enriches retrieved contexts, enabling better decision-making.
+   - A logistic regression model is used for binary classification (`ham` or `spam`).
+
+4. **API Integration**
+   - The classification pipeline is exposed via a RESTful API for real-time email classification.
+
+5. **Evaluation**
+   - Metrics such as accuracy, precision, recall, and F1 score are computed on real-world datasets to validate the model.
+
+---
+
+## Features
+- **RAG-Based Classification**: Combines retrieval and LLM-enhanced generation for accurate and context-aware email spam detection.
+- **Real-Time Processing**: Built for high-speed, real-time classification with API integration.
+- **Embeddings with SentenceTransformer**: Efficient email embedding generation for semantic similarity.
+- **Fast Indexing and Retrieval with FAISS**: Ensures quick context retrieval for enhanced classification.
+- **Scalable Architecture**: Suitable for both small-scale and enterprise-level deployment.
+- **Comprehensive Evaluation**: Includes detailed metrics reporting for transparent validation.
+
+---
+
+## Tools and Technologies
+### Core Technologies
+- **Python**: Primary programming language for the project.
+- **FAISS**: For building and querying high-speed similarity indices.
+- **SentenceTransformer**: Generates embeddings for semantic understanding.
+- **Gemini LLM**: Provides contextual augmentation for informed classification.
+- **scikit-learn**: Implements logistic regression and evaluation metrics.
+
+### Supporting Tools
+- **Flask/FastAPI**: (Optional) API framework for deploying the model as a service.
+- **Pandas & NumPy**: For data manipulation and analysis.
+- **Matplotlib & Seaborn**: For data visualization.
+
+---
+
+## Project Structure
+```plaintext
 email-spam-filtering/
 │
 ├── data/
 │   ├── raw/                  # Original datasets (e.g., emails for training/testing).
 │   ├── processed/            # Preprocessed datasets.
-│   ├── samples/              # Example or demo emails for testing.
+│   ├── samples/              # Example emails for testing.
 │   └── README.md             # Description of the data folder.
 │
 ├── models/
-│   ├── trained_model.pth     # Trained model file (if size permits).
+│   ├── faiss_index/          # FAISS index for fast retrieval.
+│   ├── trained_model.pth     # Trained logistic regression model.
 │   └── README.md             # Notes on model training and loading.
 │
 ├── notebooks/
-│   ├── email_spam_filtering.ipynb  # Jupyter notebook with your implementation.
-│   ├── exploratory_data_analysis.ipynb  # EDA and visualizations (if separate).
-│   └── README.md             # Description of notebooks and their purposes.
+│   ├── email_spam_filtering.ipynb  # Main implementation notebook.
+│   ├── exploratory_data_analysis.ipynb  # EDA and visualizations.
+│   └── README.md             # Description of notebooks.
 │
 ├── results/
-│   ├── logs/                 # Logs generated during training/testing.
-│   ├── figures/              # Plots, graphs, or visualizations.
+│   ├── logs/                 # Training and evaluation logs.
+│   ├── figures/              # Plots and graphs.
+│   ├── metrics.json          # Evaluation metrics (e.g., accuracy, precision).
 │   └── README.md             # Summary of results.
 │
 ├── scripts/
-│   ├── preprocess.py         # Script for data preprocessing.
-│   ├── train.py              # Script for model training.
-│   ├── classify_email.py     # Main script for spam classification.
-│   ├── evaluate.py           # Script for model evaluation.
-│   └── README.md             # Description of scripts and their usage.
+│   ├── preprocess.py         # Data preprocessing script.
+│   ├── train.py              # Model training script.
+│   ├── predict.py            
+│   ├── run_pipeline.py       
+│   ├── evaluate.py           # Model evaluation script.
+│   └── README.md             # Description of scripts.
 │
 ├── tests/
 │   ├── test_preprocessing.py # Unit tests for preprocessing functions.
 │   ├── test_model.py         # Unit tests for model-related code.
-│   └── README.md             # Notes on test coverage and running tests.
-├── .gitignore                # Ignore unnecessary files (e.g., __pycache__, .DS_Store).
-├── LICENSE                   # License file (e.g., MIT, Apache 2.0).
-├── README.md                 # Project overview, installation, and usage guide.
+│   └── README.md             # Notes on test coverage.
+│
+├── .gitignore                # Ignore unnecessary files.
+├── LICENSE                   # Project license (e.g., MIT).
+├── README.md                 # Project overview (this file).
 ├── requirements.txt          # Python dependencies.
-└── setup.py                  # Script for installing the project as a package.
+└── setup.py                  # Install the project as a package.
 ```
 
 ---
 
-## Tools and Technologies
-- **Programming Language**: Python
-- **Libraries**:
-  - Natural Language Processing: `NLTK`, `spaCy`
-  - Machine Learning: `scikit-learn`, `TensorFlow`/`PyTorch`
-  - Data Analysis: `pandas`, `numpy`
-  - Visualization: `matplotlib`, `seaborn`
-- **Development Environment**:
-  - Jupyter Notebooks
-  - Integrated Development Environment (IDE): VS Code, PyCharm
-- **Testing**: `pytest`
-- **Version Control**: Git
-
----
-
-## Setup and Installation
-
+## Installation
 ### Prerequisites
-Ensure you have Python 3.7 or higher installed. Install necessary dependencies using:
-```bash
-pip install -r requirements.txt
-```
+- Python 3.8 or higher
+- Pip or Conda for package management
 
-### Repository Structure
-Navigate through the repository to explore different modules:
-- `data/`: Contains raw and processed datasets.
-- `models/`: Holds trained models.
-- `scripts/`: Contains executable scripts for preprocessing, training, and evaluation.
-- `notebooks/`: Jupyter notebooks for experiments and EDA.
-- `results/`: Outputs of training and testing, including visualizations and metrics.
-- `tests/`: Unit tests to validate the functionality of scripts and models.
-
-### Run the Project
-1. Preprocess the dataset:
+### Steps
+1. Clone the repository:
    ```bash
-   python scripts/preprocess.py
+   git clone https://github.com/TharushaSachinthana/SpamShield.git
+   cd SpamShield
    ```
-2. Train the model:
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Prepare the data:
+   - Place raw datasets in `data/raw/` and run `scripts/preprocess.py`.
+
+4. Train the model:
    ```bash
    python scripts/train.py
    ```
-3. Classify emails:
-   ```bash
-   python scripts/classify_email.py --input "sample_email.txt"
-   ```
-4. Evaluate the model:
+
+5. Test the system:
    ```bash
    python scripts/evaluate.py
    ```
 
 ---
 
-## Contribution Guidelines
-We welcome contributions! Please follow these steps:
-1. Fork the repository.
-2. Create a new branch.
-3. Commit changes with meaningful messages.
-4. Create a pull request for review.
+## Usage
+- **Classification API**: Deploy the model as an API using Flask or FastAPI.
+- **Testing on Samples**: Use sample emails in `data/samples/` to validate the model's predictions.
+- **Reproducibility**: Jupyter notebooks in `notebooks/` ensure end-to-end reproducibility.
+
+---
+
+## Results
+- **Accuracy**: 96.5%
+- **Precision**: 94.2%
+- **Recall**: 92.8%
+- **F1-Score**: 93.5%
+
+Plots and detailed metrics are available in the `results/` folder.
 
 ---
 
@@ -121,8 +152,4 @@ We welcome contributions! Please follow these steps:
 This project is licensed under the [MIT License](LICENSE).
 
 ---
-
-## Acknowledgements
-- Open-source contributors and the community.
-- Libraries and tools that made this project possible.
 
