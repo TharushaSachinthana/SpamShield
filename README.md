@@ -47,7 +47,7 @@ The architecture of the system is designed with modularity and scalability in mi
 - **scikit-learn**: Implements logistic regression and evaluation metrics.
 
 ### Supporting Tools
-- **Flask/FastAPI**: (Optional) API framework for deploying the model as a service.
+- **Flask/FastAPI**: API framework for deploying the model as a service.
 - **Pandas & NumPy**: For data manipulation and analysis.
 - **Matplotlib & Seaborn**: For data visualization.
 
